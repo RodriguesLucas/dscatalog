@@ -3,7 +3,6 @@ package com.project.dscatalog.entities;
 import java.io.Serializable;
 import java.util.Objects;
 
-
 public class CategoryEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 	

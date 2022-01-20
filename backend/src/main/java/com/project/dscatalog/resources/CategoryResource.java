@@ -20,6 +20,7 @@ public class CategoryResource {
 	public ResponseEntity<List<CategoryEntity>> findAll(){
 		List<CategoryEntity> list = new ArrayList<>();
 		list.add(new CategoryEntity(1L, "Books"));
+		list.add(new CategoryEntity(1L, "Books"));
 		return ResponseEntity.ok().body(list);
 	}
 }
