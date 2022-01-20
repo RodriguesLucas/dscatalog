@@ -10,18 +10,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.dscatalog.entities.CategoryEntity;
+import com.project.dscatalog.services.CategoryService;
 
 @RestController
 @RequestMapping(value = "/categories")
 public class CategoryResource {
 	@Autowired
-	
+	private CategoryService categoryService;
+
 	@GetMapping
-	public ResponseEntity<List<CategoryEntity>> findAll(){
-		List<CategoryEntity> list = new ArrayList<>();
-		list.add(new CategoryEntity(1L, "Books"));
-		list.add(new CategoryEntity(1L, "Books"));
+	public ResponseEntity<List<CategoryEntity>> findAll() {
+		List<CategoryEntity> list = categoryService.findAll();
 		return ResponseEntity.ok().body(list);
 	}
 }
- 
