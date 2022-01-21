@@ -29,4 +29,6 @@ public class CategoryService {
 				categoryRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Entity not found")));
 		return new CategoryDTO(optional.get());
 	}
+	
+	
 }
