@@ -9,13 +9,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import com.project.dscatalog.services.exceptions.EntityNotFoundException;
+import com.project.dscatalog.services.exceptions.ResourceNotFoundException;
 
 @ControllerAdvice
 public class ResourceExceptionHandler {
 	
-	@ExceptionHandler(EntityNotFoundException.class)
-	public ResponseEntity<StandarError> entityNotFound(EntityNotFoundException entityNotFoundException,
+	@ExceptionHandler(ResourceNotFoundException.class)
+	public ResponseEntity<StandarError> entityNotFound(ResourceNotFoundException entityNotFoundException,
 			HttpServletRequest httpServletRequestF) {
 		StandarError standarError = new StandarError();
 		standarError.setTimestamp(Instant.now());
