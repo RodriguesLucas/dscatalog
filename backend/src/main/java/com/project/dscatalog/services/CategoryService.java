@@ -1,14 +1,15 @@
 package com.project.dscatalog.services;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,11 +23,16 @@ import com.project.dscatalog.services.exceptions.ResourceNotFoundException;
 public class CategoryService {
 	@Autowired
 	private CategoryRepository categoryRepository;
-
+	
 	@Transactional(readOnly = true)
-	public List<CategoryDTO> findAll() {
-		List<CategoryEntity> list = categoryRepository.findAll();
-		return list.stream().map(CategoryDTO::new).collect(Collectors.toList()); // (v -> new CategoryDTO(v))
+	public Page<CategoryDTO> findAll(Pageable pageable) {
+		Page<CategoryEntity> list = categoryRepository.findAll(pageable);
+		return list.map(CategoryDTO::new); // (v -> new CategoryDTO(v))
+	}
+	@Transactional(readOnly = true)
+	public Page<CategoryDTO> findAllPaged(PageRequest pageRequest) {
+		Page<CategoryEntity> list = categoryRepository.findAll(pageRequest);
+		return list.map(CategoryDTO::new); // (v -> new CategoryDTO(v))
 	}
 
 	public CategoryDTO findById(Long id) {
