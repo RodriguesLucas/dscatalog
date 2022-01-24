@@ -9,20 +9,36 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import com.project.dscatalog.services.exceptions.DataBaseException;
 import com.project.dscatalog.services.exceptions.ResourceNotFoundException;
 
 @ControllerAdvice
 public class ResourceExceptionHandler {
-	
+
 	@ExceptionHandler(ResourceNotFoundException.class)
 	public ResponseEntity<StandarError> entityNotFound(ResourceNotFoundException entityNotFoundException,
 			HttpServletRequest httpServletRequestF) {
+		HttpStatus status = HttpStatus.NOT_FOUND;
+		StandarError standarError = test(entityNotFoundException, httpServletRequestF, status, "Resource not found");
+		return ResponseEntity.status(status).body(standarError);
+	}
+
+	@ExceptionHandler(DataBaseException.class)
+	public ResponseEntity<StandarError> dataBase(DataBaseException dataBaseException,
+			HttpServletRequest httpServletRequestF) {
+		HttpStatus status = HttpStatus.BAD_REQUEST;
+		StandarError standarError = test(dataBaseException, httpServletRequestF, status, "DataBase Exception");
+		return ResponseEntity.status(status).body(standarError);
+	}
+
+	private StandarError test(Exception exception, HttpServletRequest httpServletRequestF, HttpStatus status,
+			String message) {
 		StandarError standarError = new StandarError();
 		standarError.setTimestamp(Instant.now());
-		standarError.setStatus(HttpStatus.NOT_FOUND.value());
-		standarError.setError("Resource not found");
-		standarError.setMessage(entityNotFoundException.getMessage());
+		standarError.setStatus(status.value());
+		standarError.setError(message);
+		standarError.setMessage(exception.getMessage());
 		standarError.setPath(httpServletRequestF.getRequestURI());
-		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(standarError);
+		return standarError;
 	}
 }
