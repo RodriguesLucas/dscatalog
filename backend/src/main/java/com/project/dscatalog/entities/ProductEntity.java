@@ -33,7 +33,7 @@ public class ProductEntity implements Serializable {
 	private Instant date;
 	@ManyToMany
 	@JoinTable(name = "tb_product_category", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
-	Set<CategoryEntity> categories = new HashSet<CategoryEntity>();
+	Set<CategoryEntity> categories = new HashSet<>();
 
 	public ProductEntity() {
 	}
@@ -71,11 +71,11 @@ public class ProductEntity implements Serializable {
 		this.description = description;
 	}
 
-	public Double getPriceDouble() {
+	public Double getPrice() {
 		return price;
 	}
 
-	public void setPriceDouble(Double price) {
+	public void setPrice(Double price) {
 		this.price = price;
 	}
 

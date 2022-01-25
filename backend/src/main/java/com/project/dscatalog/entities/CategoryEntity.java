@@ -87,4 +87,12 @@ public class CategoryEntity implements Serializable {
 		return Objects.equals(id, other.id);
 	}
 
+	@Override
+	public String toString() {
+		return "CategoryEntity [id=" + id + ", name=" + name + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt
+				+ "]";
+	}
+	
+	
+
 }
