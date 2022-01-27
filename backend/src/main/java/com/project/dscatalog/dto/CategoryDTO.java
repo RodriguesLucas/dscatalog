@@ -2,7 +2,7 @@ package com.project.dscatalog.dto;
 
 import java.io.Serializable;
 
-import com.project.dscatalog.entities.CategoryEntity;
+import com.project.dscatalog.entities.Category;
 
 public class CategoryDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -18,7 +18,7 @@ public class CategoryDTO implements Serializable {
 		this.name = name;
 	}
 
-	public CategoryDTO(CategoryEntity categoryEntity) {
+	public CategoryDTO(Category categoryEntity) {
 		this.id = categoryEntity.getId();
 		this.name = categoryEntity.getName();
 	}

@@ -3,15 +3,12 @@ package com.project.dscatalog.dto;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
-import com.project.dscatalog.entities.CategoryEntity;
-import com.project.dscatalog.entities.ProductEntity;
+import com.project.dscatalog.entities.Category;
+import com.project.dscatalog.entities.Product;
 
 public class ProductDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -23,7 +20,7 @@ public class ProductDTO implements Serializable {
 	private String imgUrl;
 	private Instant date;
 
-	private List<CategoryDTO> categoryDTOs = new ArrayList<>();
+	private List<CategoryDTO> categories = new ArrayList<>();
 
 	public ProductDTO() {
 	}
@@ -37,7 +34,7 @@ public class ProductDTO implements Serializable {
 		this.date = date;
 	}
 
-	public ProductDTO(ProductEntity productEntity) {
+	public ProductDTO(Product productEntity) {
 		this.id = productEntity.getId();
 		this.name = productEntity.getName();
 		this.description = productEntity.getDescription();
@@ -46,10 +43,9 @@ public class ProductDTO implements Serializable {
 		this.date = productEntity.getDate();
 	}
 	
-	
-	public ProductDTO(ProductEntity productEntity, Set<CategoryEntity> categoryEntities) {
+	public ProductDTO(Product productEntity, Set<Category> categoryEntities) {
 		this(productEntity);
-		categoryEntities.forEach(cat -> this.categoryDTOs.add(new CategoryDTO(cat))); //this.categoryDTOs.add(new CategoryDTO(cat))
+		categoryEntities.forEach(cat -> this.categories.add(new CategoryDTO(cat)));
 	}
 
 	public Long getId() {
@@ -100,12 +96,12 @@ public class ProductDTO implements Serializable {
 		this.date = date;
 	}
 
-	public List<CategoryDTO> getCategoryDTOs() {
-		return categoryDTOs;
+	public List<CategoryDTO> getCategories() {
+		return categories;
 	}
 
-	public void setCategoryDTOs(List<CategoryDTO> categoryDTOs) {
-		this.categoryDTOs = categoryDTOs;
+	public void setCategories(List<CategoryDTO> categories) {
+		this.categories = categories;
 	}
 
 }

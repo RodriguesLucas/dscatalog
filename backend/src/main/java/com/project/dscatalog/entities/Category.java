@@ -15,7 +15,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "tb_category")
-public class CategoryEntity implements Serializable {
+public class Category implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -28,10 +28,10 @@ public class CategoryEntity implements Serializable {
 	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE") // UTC
 	private Instant updatedAt;
 
-	public CategoryEntity() {
+	public Category() {
 	}
 
-	public CategoryEntity(Long id, String name) {
+	public Category(Long id, String name) {
 		this.id = id;
 		this.name = name;
 	}
@@ -83,7 +83,7 @@ public class CategoryEntity implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		CategoryEntity other = (CategoryEntity) obj;
+		Category other = (Category) obj;
 		return Objects.equals(id, other.id);
 	}
 

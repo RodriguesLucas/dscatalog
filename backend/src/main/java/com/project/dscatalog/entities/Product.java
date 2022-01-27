@@ -5,7 +5,6 @@ import java.time.Instant;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,7 +17,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "tb_product")
-public class ProductEntity implements Serializable {
+public class Product implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -31,14 +30,15 @@ public class ProductEntity implements Serializable {
 	private String imgUrl;
 	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
 	private Instant date;
-	@ManyToMany
+	
 	@JoinTable(name = "tb_product_category", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
-	Set<CategoryEntity> categories = new HashSet<>();
+	@ManyToMany
+	private Set<Category> categories = new HashSet<>();
 
-	public ProductEntity() {
+	public Product() {
 	}
 
-	public ProductEntity(Long id, String name, String description, Double price, String imgUrl, Instant date) {
+	public Product(Long id, String name, String description, Double price, String imgUrl, Instant date) {
 		this.id = id;
 		this.name = name;
 		this.description = description;
@@ -95,7 +95,7 @@ public class ProductEntity implements Serializable {
 		this.date = date;
 	}
 
-	public Set<CategoryEntity> getCategories() {
+	public Set<Category> getCategories() {
 		return categories;
 	}
 
@@ -112,7 +112,7 @@ public class ProductEntity implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ProductEntity other = (ProductEntity) obj;
+		Product other = (Product) obj;
 		return Objects.equals(id, other.id);
 	}
 
