@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,15 +22,10 @@ import com.project.dscatalog.services.exceptions.ResourceNotFoundException;
 public class CategoryService {
 	@Autowired
 	private CategoryRepository categoryRepository;
-	
+
 	@Transactional(readOnly = true)
 	public Page<CategoryDTO> findAll(Pageable pageable) {
 		Page<Category> list = categoryRepository.findAll(pageable);
-		return list.map(CategoryDTO::new); // (v -> new CategoryDTO(v))
-	}
-	@Transactional(readOnly = true)
-	public Page<CategoryDTO> findAllPaged(PageRequest pageRequest) {
-		Page<Category> list = categoryRepository.findAll(pageRequest);
 		return list.map(CategoryDTO::new); // (v -> new CategoryDTO(v))
 	}
 
